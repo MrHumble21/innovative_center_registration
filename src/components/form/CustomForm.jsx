@@ -29,31 +29,35 @@ function CustomForm() {
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState("");
   const [gender, setGender] = useState("");
+  const [termsAndConditions, setTermsAndConditions] = useState(false);
   const { exam } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (termsAndConditions) {
+      const data = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        passport: passport,
+        dateOfBirth: dateOfBirth,
+        phone: phone,
+        image: image,
+        gender: gender,
+      };
+      console.log(data);
 
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      passport: passport,
-      dateOfBirth: dateOfBirth,
-      phone: phone,
-      image: image,
-      gender: gender,
-    };
-    console.log(data);
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassport("");
-    setDateOfBirth("");
-    setPhone("");
-    setImage("");
-    setGender();
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassport("");
+      setDateOfBirth("");
+      setPhone("");
+      setImage("");
+      setGender();
+    } else {
+      alert("Please read and accept Terms & Conditions");
+    }
   };
 
   return (
@@ -212,8 +216,10 @@ function CustomForm() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          value=""
-                          onChange={() => {}}
+                          onChange={(e) => {
+                            setTermsAndConditions(e.target.checked);
+                            console.log(termsAndConditions);
+                          }}
                           id="flexCheckDefault"
                         />
                         <label
