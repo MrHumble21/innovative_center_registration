@@ -8,7 +8,7 @@ import { BiImageAdd } from "react-icons/bi";
 import { app_colors } from "../../utils/colors";
 import CustomInput from "./CustomInput";
 import CustomRadioButton from "./CustomRadioButton";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import IeltsForm from "./IeltsForm";
 
 const defaultOptions = {
@@ -31,7 +31,7 @@ function CustomForm() {
   const [gender, setGender] = useState("");
   const [termsAndConditions, setTermsAndConditions] = useState(false);
   const { exam } = useParams();
-
+  const exam_name = useLocation().state;
   const handleSubmit = (e) => {
     e.preventDefault();
     if (termsAndConditions) {
@@ -81,7 +81,7 @@ function CustomForm() {
                       fontWeight: "bolder",
                     }}
                   >
-                    Register for an exam
+                    Register for {exam_name}
                   </h2>
                   <CustomInput
                     type={"text"}

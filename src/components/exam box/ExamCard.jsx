@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { app_colors } from "../../utils/colors";
-const ExamCard = ({ title, description, image, borderColor, link }) => {
+import cambridge from "./cam.png";
+import ielts from "./ielts.png";
+const ExamCard = ({ title, description, image, borderColor, link, id }) => {
   return (
-    <Link to={`/${link}`}>
+    <Link to={`/${link}`} state={title}>
       <div
         style={{
           borderTop: "4px solid" + borderColor,
@@ -20,7 +22,13 @@ const ExamCard = ({ title, description, image, borderColor, link }) => {
           <p style={{ color: app_colors.text }}>{description}</p>
         </div>
         <div className="m-0 container d-flex justify-content-end">
-          <img src={image} alt="" />
+          <img
+            style={{
+              width: "120px",
+            }}
+            src={id == "14" ? ielts : cambridge}
+            alt=""
+          />
         </div>
       </div>
     </Link>

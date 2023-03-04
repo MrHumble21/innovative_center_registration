@@ -22,11 +22,12 @@ const Landing = () => {
               image_links[Math.floor(Math.random() * image_links.length)];
 
             return (
-              <div key={i} className="col-sm-12 col-md-4 col-lg-3">
+              <div key={i} className="col-sm-12 col-md-4 col-lg-4">
                 <ExamCard
                   title={e.name}
                   image={randomImage}
                   link={e.id}
+                  id={e.id}
                   description={"description..."}
                   borderColor={color}
                 />
