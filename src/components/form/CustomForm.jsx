@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-number-input";
 import { BiImageAdd } from "react-icons/bi";
 import { app_colors } from "../../utils/colors";
 import Input from "./CustomInput";
+import CustomInput from "./CustomInput";
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -53,7 +54,7 @@ function CustomForm() {
                     aria-describedby="emailHelp"
                   />
                 </div>
-                <CustomInput type={text} />
+                <CustomInput type={"text"} />
                 <div className="form-group">
                   <label for="exampleInputEmail1" className="form-label mt-2 ">
                     Last Name (per PASSPORT)
@@ -155,7 +156,7 @@ function CustomForm() {
                   />
                 </div>
                 <div className="form-group">
-                  <h5 className="mt-2 ">Attach passport</h5>
+                  <h6 className="mt-2 ">Attach passport</h6>
                   <label htmlFor="image_uplo ad">
                     <BiImageAdd size={80} color={app_colors.violet} />
                   </label>
