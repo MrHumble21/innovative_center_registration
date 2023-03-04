@@ -4,7 +4,7 @@ const CustomInput = ({
   label,
   type,
   value,
-  handleChange,
+  handlechange,
   className,
   id,
   aria_describedly,
@@ -22,7 +22,7 @@ const CustomInput = ({
         className={className}
         id={type === "file" ? id : null}
         aria-describedby={aria_describedly}
-        onChange={handleChange}
+        onChange={handlechange}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomRadioButton = ({ label, handleChange, value }) => {
+const CustomRadioButton = ({ label, handlechange, value }) => {
   return (
     <fieldset className="form-group d-flex flex-column align-items-start">
       <h5 className="mt-2 ">{label}</h5>
@@ -12,7 +12,7 @@ const CustomRadioButton = ({ label, handleChange, value }) => {
             name="optionsRadios"
             id="optionsRadios1"
             value={"male"}
-            onChange={handleChange}
+            onChange={handlechange}
           />
           <label className="form-check-label" htmlFor="optionsRadios1">
             male
@@ -25,7 +25,7 @@ const CustomRadioButton = ({ label, handleChange, value }) => {
             name="optionsRadios"
             id="optionsRadios2"
             value={"female"}
-            onChange={handleChange}
+            onChange={handlechange}
           />
           <label className="form-check-label" htmlFor="optionsRadios2">
             female

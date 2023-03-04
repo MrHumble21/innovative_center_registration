@@ -149,7 +149,6 @@ function CustomForm() {
                   </label>
                   <PhoneInput
                     className="form-control"
-                    def
                     placeholder="Enter phone number"
                     value={value}
                     onChange={setValue}

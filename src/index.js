@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Landing from "./pages/Landing/Landing";
 import CustomForm from "./components/form/CustomForm";
+import IeltsForm from "./components/form/IeltsForm";
 
 const router = createBrowserRouter([
   {

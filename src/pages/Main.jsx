@@ -1,10 +1,9 @@
-import React from 'react'
-import CustomForm from '../components/form/CustomForm'
+import React from "react";
+import CustomForm from "../components/form/CustomForm";
+import IeltsForm from "../components/form/IeltsForm";
 
 function Main() {
-  return (
-    <CustomForm/>
-  )
+  return <IeltsForm />;
 }
 
-export default Main
+export default Main;
