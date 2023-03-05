@@ -8,7 +8,7 @@ import { BiImageAdd } from "react-icons/bi";
 import { app_colors } from "../../utils/colors";
 import CustomInput from "./CustomInput";
 import CustomRadioButton from "./CustomRadioButton";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import IeltsForm from "./IeltsForm";
 
 const defaultOptions = {
@@ -29,31 +29,35 @@ function CustomForm() {
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState("");
   const [gender, setGender] = useState("");
+  const [termsAndConditions, setTermsAndConditions] = useState(false);
   const { exam } = useParams();
-
+  const exam_name = useLocation().state;
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (termsAndConditions) {
+      const data = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        passport: passport,
+        dateOfBirth: dateOfBirth,
+        phone: phone,
+        image: image,
+        gender: gender,
+      };
+      console.log(data);
 
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      passport: passport,
-      dateOfBirth: dateOfBirth,
-      phone: phone,
-      image: image,
-      gender: gender,
-    };
-    console.log(data);
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassport("");
-    setDateOfBirth("");
-    setPhone("");
-    setImage("");
-    setGender();
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassport("");
+      setDateOfBirth("");
+      setPhone("");
+      setImage("");
+      setGender();
+    } else {
+      alert("Please read and accept Terms & Conditions");
+    }
   };
 
   return (
@@ -77,7 +81,7 @@ function CustomForm() {
                       fontWeight: "bolder",
                     }}
                   >
-                    Register for an exam
+                    Register for {exam_name}
                   </h2>
                   <CustomInput
                     type={"text"}
@@ -212,8 +216,10 @@ function CustomForm() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          value=""
-                          onChange={() => {}}
+                          onChange={(e) => {
+                            setTermsAndConditions(e.target.checked);
+                            console.log(termsAndConditions);
+                          }}
                           id="flexCheckDefault"
                         />
                         <label
