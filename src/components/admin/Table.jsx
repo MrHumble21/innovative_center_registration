@@ -17,21 +17,6 @@ export default function Datatable() {
     setData(data.filter((item) => item.id !== id));
   };
 
-  let dataCardUsers = {
-    title: "USERS",
-    isMoney: false,
-    link: "See all users",
-    icon: (
-      <PersonOutlineOutlined
-        style={{
-          color: "crimson",
-          backgroundColor: " rgba(218,165,32,0.2)",
-          borderRadius: "5px",
-          fontSize: "20px",
-        }}
-      />
-    ),
-  };
   const actionColumn = [
     {
       field: "action",
