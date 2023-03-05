@@ -3,7 +3,7 @@ import ExamCard from "../../components/exam box/ExamCard";
 import { ExamNames } from "../../constants/exams";
 import { border_colors } from "../../constants/border_colors";
 import { image_links } from "../../constants/imageLinks";
-
+import innovative from "./innovativ.webp";
 const Landing = () => {
   return (
     <div
@@ -13,6 +13,10 @@ const Landing = () => {
       }}
       className="container-fluid"
     >
+      <div className="container">
+        <img className="innovative-logo" src={innovative} alt="" />
+      </div>
+
       <div className="container py-4">
         <div className="row">
           {ExamNames.map((e, i) => {
@@ -27,6 +31,7 @@ const Landing = () => {
                   title={e.name}
                   image={randomImage}
                   link={e.id}
+                  info={e.info}
                   id={e.id}
                   description={"description..."}
                   borderColor={color}
