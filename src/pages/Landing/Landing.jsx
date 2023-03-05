@@ -13,7 +13,7 @@ const Landing = () => {
       }}
       className="container-fluid"
     >
-      <div className="container">
+      <div className="container d-flex justify-content-center">
         <img className="innovative-logo" src={innovative} alt="" />
       </div>
 
