@@ -9,6 +9,7 @@ import "./index.css";
 import Landing from "./pages/Landing/Landing";
 import CustomForm from "./components/form/CustomForm";
 import IeltsForm from "./components/form/IeltsForm";
+import Datatable from "./components/admin/Table";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
   {
     path: "/:exam",
     element: <CustomForm />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <>
+        <Datatable />
+      </>
+    ),
   },
 ]);
 
