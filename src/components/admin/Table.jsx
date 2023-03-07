@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+// import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { userColumns, userRows } from "../../constants/data";
-import PersonOutlineOutlined from "@mui/icons-material/PersonOutlineOutlined";
 import AdminBarGraph from "../charts/AdminBarChart";
 import AdminLineGraph from "../charts/AdminLineGraph";
-import MixedCharts from "../charts/AdminBarChart";
 import AdminScatterChart from "../charts/AdminScatterChart";
 import Sidebar from "../sidebar/Sidebar";
 import Navbar from "../navbar/Navbar";
@@ -40,75 +38,76 @@ export default function Datatable() {
     },
   ];
   return (
-    <div style={{ backgroundColor: "#EEEEEE" }}>
-      <Navbar />
-      <div className="container-fluid pt-5">
-        <div className="">
-          <div className="">
-            <div className="row">
-              <div className="col-md-2 col-sm-4 col-lg-2 d-flex ">
-                <Sidebar />
-              </div>
-              <div className="col-md-10 col-sm-8 col-lg-10">
-                <div className="container text-center p-3">
-                  <div className="row">
-                    <div className="col-sm-4">
-                      <div
-                        className="card mb-2"
-                        style={{ borderRadius: "10px" }}
-                      >
-                        <div className="card-body">
-                          <AdminScatterChart />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-sm-4">
-                      <div
-                        className="card mb-2"
-                        style={{ borderRadius: "10px" }}
-                      >
-                        <div className="card-body">
-                          <AdminBarGraph />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-sm-4">
-                      <div
-                        className="card mb-2"
-                        style={{ borderRadius: "10px" }}
-                      >
-                        <div className="card-body">
-                          <AdminLineGraph />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <></>
+    // <div style={{ backgroundColor: "#EEEEEE" }}>
+    //   <Navbar />
+    //   <div className="container-fluid pt-5">
+    //     <div className="">
+    //       <div className="">
+    //         <div className="row">
+    //           <div className="col-md-2 col-sm-4 col-lg-2 d-flex ">
+    //             <Sidebar />
+    //           </div>
+    //           <div className="col-md-10 col-sm-8 col-lg-10">
+    //             <div className="container text-center p-3">
+    //               <div className="row">
+    //                 <div className="col-sm-4">
+    //                   <div
+    //                     className="card mb-2"
+    //                     style={{ borderRadius: "10px" }}
+    //                   >
+    //                     <div className="card-body">
+    //                       <AdminScatterChart />
+    //                     </div>
+    //                   </div>
+    //                 </div>
+    //                 <div className="col-sm-4">
+    //                   <div
+    //                     className="card mb-2"
+    //                     style={{ borderRadius: "10px" }}
+    //                   >
+    //                     <div className="card-body">
+    //                       <AdminBarGraph />
+    //                     </div>
+    //                   </div>
+    //                 </div>
+    //                 <div className="col-sm-4">
+    //                   <div
+    //                     className="card mb-2"
+    //                     style={{ borderRadius: "10px" }}
+    //                   >
+    //                     <div className="card-body">
+    //                       <AdminLineGraph />
+    //                     </div>
+    //                   </div>
+    //                 </div>
+    //               </div>
+    //             </div>
 
-                <div
-                  className="datatable container"
-                  style={{ backgroundColor: "#fff", borderRadius: "10px" }}
-                >
-                  <div className="datatableTitle">
-                    Registered Users
-                    <Link to="/users/new" className="link">
-                      New Exam
-                    </Link>
-                  </div>
-                  <DataGrid
-                    className="datagrid"
-                    rows={data}
-                    columns={userColumns.concat(actionColumn)}
-                    pageSize={9}
-                    rowsPerPageOptions={[9]}
-                    checkboxSelection
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    //             <div
+    //               className="datatable container"
+    //               style={{ backgroundColor: "#fff", borderRadius: "10px" }}
+    //             >
+    //               <div className="datatableTitle">
+    //                 Registered Users
+    //                 <Link to="/users/new" className="link">
+    //                   New Exam
+    //                 </Link>
+    //               </div>
+    //               <DataGrid
+    //                 className="datagrid"
+    //                 rows={data}
+    //                 columns={userColumns.concat(actionColumn)}
+    //                 pageSize={9}
+    //                 rowsPerPageOptions={[9]}
+    //                 checkboxSelection
+    //               />
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 }
