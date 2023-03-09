@@ -71,31 +71,37 @@ function CustomForm() {
                     aria-describedby="emailHelp"
                   />
                 </div>
-                <fieldset class="form-group d-flex flex-column align-items-start">
-                  <h5 class="mt-2 ">Gender</h5>
+                <fieldset className="form-group d-flex flex-column align-items-start">
+                  <h5 className="mt-2 ">Gender</h5>
                   <div className=" d-flex">
-                    <div class="form-check mx-2 ">
+                    <div className="form-check mx-2 ">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="optionsRadios"
                         id="optionsRadios1"
                         value="option1"
                         checked=""
                       />
-                      <label class="form-check-label" htmlFor="optionsRadios1">
+                      <label
+                        className="form-check-label"
+                        htmlFor="optionsRadios1"
+                      >
                         male
                       </label>
                     </div>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="radio"
                         name="optionsRadios"
                         id="optionsRadios2"
                         value="option2"
                       />
-                      <label class="form-check-label" htmlFor="optionsRadios2">
+                      <label
+                        className="form-check-label"
+                        htmlFor="optionsRadios2"
+                      >
                         female
                       </label>
                     </div>
@@ -129,11 +135,11 @@ function CustomForm() {
                     aria-describedby="emailHelp"
                   />
                 </div>
-                <div class="form-group">
-                  <label htmlFor="exampleSelect1" class="form-label mt-2 ">
+                <div className="form-group">
+                  <label htmlFor="exampleSelect1" className="form-label mt-2 ">
                     Select Region
                   </label>
-                  <select class="form-select" id="exampleSelect1">
+                  <select className="form-select" id="exampleSelect1">
                     <option></option>
 
                     {regions.map((region, i) => (
@@ -144,7 +150,7 @@ function CustomForm() {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="exampleSelect1" class="form-label mt-2 ">
+                  <label htmlFor="exampleSelect1" className="form-label mt-2 ">
                     Phone Number
                   </label>
                   <PhoneInput
@@ -180,16 +186,16 @@ function CustomForm() {
                   />
                 </div>
                 <div className="container">
-                  <fieldset class="form-group">
-                    <div class="form-check">
+                  <fieldset className="form-group">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         value=""
                         id="flexCheckDefault"
                       />
                       <label
-                        class="form-check-label"
+                        className="form-check-label"
                         htmlFor="flexCheckDefault"
                       >
                         I have read and agreed on <b>Term and Contions</b>

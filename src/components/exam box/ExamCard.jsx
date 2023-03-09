@@ -34,7 +34,7 @@ const ExamCard = ({
           target="_blank"
           type="button"
           style={{ borderRadius: "20px" }}
-          class="btn d-inline-flex  justify-content-center align-items-center btn-outline-info"
+          className="btn d-inline-flex  justify-content-center align-items-center btn-outline-info"
           rel="noreferrer"
         >
           <AiOutlineFilePdf className="mx-2" color="red" /> {title} FAQs
@@ -46,7 +46,7 @@ const ExamCard = ({
             bottom: "18px",
             left: "10px",
           }}
-          class="badge position-absolute rounded-pill px-4 py-2 bg-primary"
+          className="badge position-absolute rounded-pill px-4 py-2 bg-primary"
         >
           Register <BsFillArrowRightCircleFill />
         </span>
