@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Lottie from "react-lottie";
 import { regions } from "../../constants/regions";
 import form_animation from "./form_animation.json";
@@ -10,6 +11,10 @@ import CustomInput from "./CustomInput";
 import CustomRadioButton from "./CustomRadioButton";
 import { useLocation, useParams } from "react-router";
 import IeltsForm from "./IeltsForm";
+import { storage } from "../../utils/firebase/firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { BASE_URL } from "../../constants/baseurl";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const defaultOptions = {
   loop: true,
@@ -29,37 +34,83 @@ function CustomForm() {
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState("");
   const [gender, setGender] = useState("");
+  const [region, setRegion] = useState("");
   const [termsAndConditions, setTermsAndConditions] = useState(false);
+  const [progresspercent, setProgresspercent] = useState(0);
+  const [preview, setPreview] = useState("");
   const { exam } = useParams();
   const exam_name = useLocation().state;
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (termsAndConditions) {
-      const data = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        passport: passport,
-        dateOfBirth: dateOfBirth,
-        phone: phone,
-        image: image,
-        gender: gender,
-      };
-      console.log(data);
 
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassport("");
-      setDateOfBirth("");
-      setPhone("");
-      setImage("");
-      setGender();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (termsAndConditions && image !== "") {
+      // const data = {
+      //   first_name: firstName,
+      //   last_name: lastName,
+      //   email: email,
+      //   passport_number: passport,
+      //   date_of_birth: dateOfBirth,
+      //   phone: phone,
+      //   region: region,
+      //   image: image,
+      //   gender: gender,
+      //   exam_type: exam_name,
+      //   is_paid: false,
+      // };
+
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/add_user",
+
+          {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            passport_number: passport,
+            date_of_birth: dateOfBirth,
+            phone: phone,
+            region: region,
+            image: image,
+            gender: gender,
+            exam_type: exam_name,
+            is_paid: false,
+          }
+        )
+        .then((response) => console.log(response.data))
+        .catch((error) => console.error(error));
     } else {
       alert("Please read and accept Terms & Conditions");
     }
   };
 
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const file = e.target[0]?.files[0];
+
+    if (!file) return;
+
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgresspercent(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImage(downloadURL);
+          console.log(downloadURL);
+        });
+      }
+    );
+  };
   return (
     <>
       {exam !== "14" ? (
@@ -159,10 +210,10 @@ function CustomForm() {
                     <select
                       className="form-select"
                       id="exampleSelect1"
-                      onChange={() => {}}
+                      onChange={(e) => {
+                        setRegion(e.target.value);
+                      }}
                     >
-                      <option></option>
-
                       {regions.map((region, i) => (
                         <option key={i} value={region}>
                           {region}
@@ -199,7 +250,7 @@ function CustomForm() {
                     }}
                   />
                   <h6 className="mt-2 ">Attach passport</h6>
-                  <CustomInput
+                  {/* <CustomInput
                     htmlfor={"image_upload"}
                     type={"file"}
                     className={"visually-hidden"}
@@ -209,7 +260,95 @@ function CustomForm() {
                     }}
                     value={image}
                     label={<BiImageAdd size={80} color={app_colors.violet} />}
-                  />
+                  /> */}
+
+                  <form onSubmit={uploadImage} className="">
+                    <div className="">
+                      <div className="d-flex">
+                        <div className="mx-2 d-flex justify-content-center align-items-center">
+                          <label htmlFor="upload">
+                            <BiImageAdd size={80} color={app_colors.violet} />
+                          </label>
+                        </div>
+                        <div className="">
+                          <img
+                            src={image}
+                            style={{ width: "150px", borderRadius: "7px" }}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <input
+                        id="upload"
+                        className="visually-hidden"
+                        type="file"
+                      />
+                      <div className="">
+                        <button
+                          type="submit"
+                          style={{
+                            backgroundColor: app_colors.violet,
+                            borderRadius: "10px",
+                          }}
+                          className="badge p-2 my-2 fs-6"
+                        >
+                          Upload image
+                        </button>
+                        <span
+                          onClick={() => {
+                            setImage("");
+                            setProgresspercent(0);
+                          }}
+                          style={{
+                            // backgroundColor: app_colors.violet,
+                            borderRadius: "10px",
+                          }}
+                          className="badge mx-2 p-2 my-2 text-bg-danger fs-6"
+                        >
+                          <FaRegTrashAlt />
+                        </span>
+                      </div>
+                    </div>
+                  </form>
+                  {!image ? (
+                    <h6 className=" m-2">
+                      Please choose image of your passport or ID, and wait until
+                      process finishes
+                    </h6>
+                  ) : (
+                    <div className="container w-50 my-4 ">
+                      <div
+                        className="progress bg-light"
+                        style={{ height: "5px" }}
+                      >
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          style={{
+                            width: `${progresspercent}%`,
+                            backgroundColor: app_colors.violet,
+                            borderRadius: "10px",
+                            // height: "5px",
+                          }}
+                          aria-valuenow={progresspercent + "%"}
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                        <div className="progress">
+                          <div
+                            className="progress-bar progress-bar-striped progress-bar-animated"
+                            role="progressbar"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style={{ width: `${progresspercent}%` }}
+                            aria-valuenow={progresspercent + "%"}
+                          ></div>
+                        </div>
+                      </div>
+                      <center>{progresspercent + "%"}</center>
+                    </div>
+                  )}
+
                   <div className="container">
                     <fieldset className="form-group">
                       <div className="form-check">
@@ -232,17 +371,19 @@ function CustomForm() {
                     </fieldset>
                   </div>
                   <div className=" d-flex justify-content-start mt-2">
-                    <button
-                      type="button"
-                      className="custom-btn text-white my-2 "
-                      style={{
-                        backgroundColor: app_colors.violet,
-                        borderRadius: "10px",
-                      }}
-                      onClick={handleSubmit}
-                    >
-                      Register
-                    </button>
+                    {image && (
+                      <button
+                        type="button"
+                        className="custom-btn text-white my-2 "
+                        style={{
+                          backgroundColor: app_colors.violet,
+                          borderRadius: "10px",
+                        }}
+                        onClick={handleSubmit}
+                      >
+                        Register
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

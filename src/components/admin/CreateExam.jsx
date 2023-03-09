@@ -85,12 +85,12 @@ const CreateExam = () => {
                   setPrice(event.target.value);
                 }}
               />
-              <div class="d-grid my-3 gap-2">
+              <div className="d-grid my-3 gap-2">
                 <button
                   style={{
                     borderRadius: "10px",
                   }}
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   type="button"
                   onClick={(event) => {
                     const createExamObject = {

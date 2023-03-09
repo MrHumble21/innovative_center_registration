@@ -12,11 +12,12 @@ import IeltsForm from "./components/form/IeltsForm";
 import Datatable from "./components/admin/Table";
 
 import CreateExam from "./components/admin/CreateExam";
+import TestForm from "./components/form/TestForm";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <CreateExam />,
+    element: <Landing />,
   },
   {
     path: "/:exam",
