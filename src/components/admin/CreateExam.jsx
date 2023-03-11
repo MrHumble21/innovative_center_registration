@@ -86,7 +86,7 @@ const CreateExam = () => {
                 }}
               />
 
-              <label>Price (UZBEK SO'M)</label>
+              <label>Price (UZS)</label>
               <input
                 type="number"
                 className="date-picker- my-2 form-control-feedback form-control p-2"
