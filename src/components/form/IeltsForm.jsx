@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Lottie from "react-lottie";
-import { regions } from "../../constants/regions";
 import form_animation from "./form_animation.json";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { BiImageAdd } from "react-icons/bi";
 import { app_colors } from "../../utils/colors";
 import CustomInput from "./CustomInput";
-import CustomRadioButton from "./CustomRadioButton";
+import axios from "axios";
+import Error from "../error/Error";
+import SuccessMessage from "../SuccessMessage/SuccessMessage";
+
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -21,21 +22,38 @@ function IeltsForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [termsAndConditions, setTermsAndConditions] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-    };
-    console.log(data);
-
-    setFirstName("");
-    setLastName("");
-    setPhone("");
+  const create_ielts_user = async () => {
+    if (termsAndConditions) {
+      await axios
+        .post("/api/ielts_user", {
+          first_name: firstName,
+          last_name: lastName,
+          phone: phone,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setError(false);
+            setSuccess(true);
+          }
+        })
+        .catch((error) => {
+          setError(true);
+          console.log(error);
+          setErrorMessage(
+            error.response.data.error._message +
+              ". Please try again with filling in all the fields!"
+          );
+        });
+    } else {
+      alert("Please read and accept Terms & Conditions");
+    }
   };
+
   return (
     <>
       <div
@@ -64,6 +82,9 @@ function IeltsForm() {
                 >
                   Register for IELTS Mock
                 </h2>
+                {success && (
+                  <SuccessMessage examName={" Register for IELTS Mock"} />
+                )}
                 <CustomInput
                   type={"text"}
                   label={"First Name (per PASSPORT)"}
@@ -104,6 +125,28 @@ function IeltsForm() {
                     onChange={setPhone}
                   />
                 </div>
+                <div className="container my-3">
+                  <fieldset className="form-group">
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        onChange={(e) => {
+                          setTermsAndConditions(e.target.checked);
+                          console.log(termsAndConditions);
+                        }}
+                        id="flexCheckDefault"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        I have read and agreed on <b>Term and Contions</b>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+                {error && <Error error_message={errorMessage} />}
                 <div className=" d-flex justify-content-start mt-2">
                   <button
                     type="button"
@@ -112,7 +155,7 @@ function IeltsForm() {
                       backgroundColor: app_colors.violet,
                       borderRadius: "10px",
                     }}
-                    onClick={handleSubmit}
+                    onClick={create_ielts_user}
                   >
                     Register
                   </button>

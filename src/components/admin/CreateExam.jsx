@@ -3,6 +3,7 @@ import CustomInput from "../form/CustomInput";
 import Lottie from "react-lottie";
 import datepicker from "./cal.json";
 import { ExamNames } from "../../constants/exams";
+import axios from "axios";
 
 const defaultOptions = {
   loop: true,
@@ -18,6 +19,18 @@ const CreateExam = () => {
   const [start, setStart] = useState("");
   const [price, setPrice] = useState(0);
   const [end, setEnd] = useState("");
+
+  const create_exam = async () => {
+    await axios
+      .post("/api/exam", {
+        exam_type: title,
+        start_date: start,
+        price: price,
+        end_date: end,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="container  min-vh-100 d-flex align-items-center justify-content-between py-5">
@@ -92,15 +105,7 @@ const CreateExam = () => {
                   }}
                   className="btn btn-primary"
                   type="button"
-                  onClick={(event) => {
-                    const createExamObject = {
-                      title,
-                      start,
-                      price,
-                      end,
-                    };
-                    console.log(createExamObject);
-                  }}
+                  onClick={create_exam}
                 >
                   Create Exam +
                 </button>

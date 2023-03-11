@@ -13,6 +13,11 @@ import Datatable from "./components/admin/Table";
 
 import CreateExam from "./components/admin/CreateExam";
 import TestForm from "./components/form/TestForm";
+import Admin from "./components/admin/Admin";
+import Navbar from "./components/navbar/Navbar";
+import AdminTable from "./components/admin/Table";
+import AdminExams from "./components/admin/AdminExams";
+import ExamEdit from "./components/admin/ExamEdit";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +32,35 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <>
-        <Datatable />
+        <Navbar />
+        <Admin />
+      </>
+    ),
+  },
+  {
+    path: "/create_exam",
+    element: (
+      <>
+        <Navbar />
+        <CreateExam />
+      </>
+    ),
+  },
+  {
+    path: "/admin/exams",
+    element: (
+      <>
+        <Navbar />
+        <AdminExams />
+      </>
+    ),
+  },
+  {
+    path: "/admin/exams/edit",
+    element: (
+      <>
+        <Navbar />
+        <ExamEdit />
       </>
     ),
   },

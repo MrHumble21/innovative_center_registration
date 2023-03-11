@@ -15,6 +15,8 @@ import { storage } from "../../utils/firebase/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { BASE_URL } from "../../constants/baseurl";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Error from "../error/Error";
+import SuccessMessage from "../SuccessMessage/SuccessMessage";
 
 const defaultOptions = {
   loop: true,
@@ -37,47 +39,45 @@ function CustomForm() {
   const [region, setRegion] = useState("");
   const [termsAndConditions, setTermsAndConditions] = useState(false);
   const [progresspercent, setProgresspercent] = useState(0);
-  const [preview, setPreview] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const { exam } = useParams();
   const exam_name = useLocation().state;
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (termsAndConditions && image !== "") {
-      // const data = {
-      //   first_name: firstName,
-      //   last_name: lastName,
-      //   email: email,
-      //   passport_number: passport,
-      //   date_of_birth: dateOfBirth,
-      //   phone: phone,
-      //   region: region,
-      //   image: image,
-      //   gender: gender,
-      //   exam_type: exam_name,
-      //   is_paid: false,
-      // };
+      const data = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        passport_number: passport,
+        date_of_birth: dateOfBirth,
+        phone: phone,
+        region: region,
+        image: image,
+        gender: gender,
+        exam_type: exam_name,
+        is_paid: false,
+      };
 
       axios
-        .post(
-          "http://127.0.0.1:8000/api/add_user",
-
-          {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            passport_number: passport,
-            date_of_birth: dateOfBirth,
-            phone: phone,
-            region: region,
-            image: image,
-            gender: gender,
-            exam_type: exam_name,
-            is_paid: false,
+        .post("/api/user", data)
+        .then((response) => {
+          if (response.status === 200) {
+            setError(false);
+            setSuccess(true);
           }
-        )
-        .then((response) => console.log(response.data))
-        .catch((error) => console.error(error));
+        })
+        .catch((error) => {
+          setError(true);
+          console.log(error);
+          setErrorMessage(
+            error.response.data.error._message +
+              ". Please try again with filling in all the fields!"
+          );
+        });
     } else {
       alert("Please read and accept Terms & Conditions");
     }
@@ -134,6 +134,7 @@ function CustomForm() {
                   >
                     Register for {exam_name}
                   </h2>
+                  {success && <SuccessMessage examName={" " + exam_name} />}
                   <CustomInput
                     type={"text"}
                     label={"First Name (per PASSPORT)"}
@@ -370,6 +371,7 @@ function CustomForm() {
                       </div>
                     </fieldset>
                   </div>
+                  {error && <Error error_message={errorMessage} />}
                   <div className=" d-flex justify-content-start mt-2">
                     {image && (
                       <button
