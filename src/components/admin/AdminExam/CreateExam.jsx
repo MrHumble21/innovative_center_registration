@@ -28,7 +28,12 @@ const CreateExam = () => {
         price: price,
         end_date: end,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.data.status === "success") {
+          alert(`${title} --- successfully created 👍🏻`);
+          window.location.reload();
+        }
+      })
       .catch((err) => console.log(err));
   };
 

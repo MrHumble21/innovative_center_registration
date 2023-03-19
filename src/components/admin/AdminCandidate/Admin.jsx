@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import AdminTable from "./Table";
+import AdminTable from "../AdminExam/Edit/Table";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
@@ -29,6 +29,7 @@ const Admin = () => {
           "Phone",
           "Email",
           "Exam Type",
+          "Passport",
           "Paid Status",
           "Delete",
         ]}

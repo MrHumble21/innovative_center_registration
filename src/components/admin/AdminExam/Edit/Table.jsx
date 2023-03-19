@@ -1,10 +1,54 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { MdDelete, MdOutlineDeleteOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { AiOutlineCloudDownload } from "react-icons/ai";
 
 function AdminTable({ head = [], body = [] }) {
   const [dColor, setDcolor] = useState("#e96479");
+  const mark_as_paid = (user_id, user) => {
+    axios
+      .post("/api/mark_as_paid", { user_id, user })
+      .then((response) => {
+        const { is_paid } = response.data;
+        if (is_paid) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const mark_as_not_paid = (user_id, user) => {
+    axios
+      .post("/api/mark_as_not_paid", { user_id, user })
+      .then((response) => {
+        const { is_paid } = response.data;
+        if (!is_paid) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const delete_user = (user_id) => {
+    console.log(user_id);
+    axios
+      .post("/api/delete_user", { user_id })
+      .then((response) => {
+        const { status } = response.data;
+        if (status === "deleted") {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <div className="container-fluid table-container my-5">
@@ -45,8 +89,19 @@ function AdminTable({ head = [], body = [] }) {
                   <td>{body.email || "Not provided"}</td>
                   <td>{body.exam_type}</td>
                   <td>
+                    <center>
+                      <a target={"_blank"} href={body.image}>
+                        <AiOutlineCloudDownload size={30} />
+                      </a>
+                    </center>
+                  </td>
+                  <td>
                     {!body.is_paid ? (
                       <span
+                        role={"button"}
+                        onClick={() => {
+                          mark_as_paid(body._id, body);
+                        }}
                         style={{
                           fontSize: "10px",
                           fontWeight: "bold",
@@ -57,6 +112,10 @@ function AdminTable({ head = [], body = [] }) {
                       </span>
                     ) : (
                       <span
+                        onClick={() => {
+                          mark_as_not_paid(body._id, body);
+                        }}
+                        role={"button"}
                         style={{
                           fontSize: "10px",
                           fontWeight: "bold",
@@ -67,21 +126,16 @@ function AdminTable({ head = [], body = [] }) {
                       </span>
                     )}
                   </td>
-                  <td className=" d-flex justify-content-center">
-                    <button
-                      className="custom-btn px-2 py-1  d-flex justify-content-center align-items-center"
-                      onClick={() => {}}
-                      type="submit"
-                      onMouseOver={() => {
-                        setDcolor("white");
-                      }}
-                      onMouseOut={() => {
-                        setDcolor("#e96479");
-                      }}
-                      style={{}}
-                    >
-                      <MdOutlineDeleteOutline size={20} color={dColor} />
-                    </button>
+                  <td className="">
+                    <center>
+                      <MdDelete
+                        onClick={() => {
+                          delete_user(body._id);
+                        }}
+                        color={"red"}
+                        size={30}
+                      />
+                    </center>
                   </td>
                 </tr>
               );
@@ -90,8 +144,8 @@ function AdminTable({ head = [], body = [] }) {
         </table>
         {body.length === 0 && (
           <center>
-            <div class="spinner-grow" role="status">
-              <span class="visually-hidden">Loading...</span>
+            <div className="spinner-grow" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
           </center>
         )}

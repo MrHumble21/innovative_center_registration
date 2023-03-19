@@ -34,6 +34,7 @@ function AdminExamsTable({ head = [], body = [] }) {
           </thead>
           <tbody>
             {body.map((b, i) => {
+              console.log(b);
               return (
                 <tr key={i}>
                   <th scope="row">{i + 1}</th>
@@ -55,8 +56,8 @@ function AdminExamsTable({ head = [], body = [] }) {
         </table>
         {body.length === 0 && (
           <center>
-            <div class="spinner-grow" role="status">
-              <span class="visually-hidden">Loading...</span>
+            <div className="spinner-grow" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
           </center>
         )}
