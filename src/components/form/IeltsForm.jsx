@@ -31,7 +31,7 @@ function IeltsForm() {
   const [choosenDate, setChoosenDate] = useState("");
   const getExamData = (ex) => {
     axios
-      .post("/api/exam/get_date", { exam_type: "IELTS Mock" })
+      .post(BASE_URL + "/api/exam/get_date", { exam_type: "IELTS Mock" })
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
         console.log(response.data);
@@ -140,8 +140,12 @@ function IeltsForm() {
                   }}
                 >
                   <option selected>Available dates</option>
-                  {availableDate.map((e) => {
-                    return <option value={e.exam_date}>{e.exam_date}</option>;
+                  {availableDate.map((e, k) => {
+                    return (
+                      <option key={k} value={e.exam_date}>
+                        {e.exam_date}
+                      </option>
+                    );
                   })}
                 </select>
                 <div className="form-group">

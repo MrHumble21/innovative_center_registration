@@ -66,9 +66,11 @@ function CustomForm() {
         is_paid: false,
       };
 
-      axios
+      console.log(data);
+      await axios
         .post(BASE_URL + "/api/user", data)
         .then((response) => {
+          console.log(response);
           if (response.status === 200) {
             setError(false);
             setSuccess(true);
@@ -212,9 +214,13 @@ function CustomForm() {
                       console.log(choosenDate);
                     }}
                   >
-                    <option selected>Available dates</option>
-                    {availableDate.map((e) => {
-                      return <option value={e.exam_date}>{e.exam_date}</option>;
+                    <option>Available dates</option>
+                    {availableDate.map((e, k) => {
+                      return (
+                        <option key={k} value={e.exam_date}>
+                          {e.exam_date}
+                        </option>
+                      );
                     })}
                   </select>
 

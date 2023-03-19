@@ -29,6 +29,7 @@ const CreateExam = () => {
         price: price,
       })
       .then((res) => {
+        console.log(res);
         if (res.data.status === "success") {
           alert(`${title} --- successfully created 👍🏻`);
           window.location.reload();
