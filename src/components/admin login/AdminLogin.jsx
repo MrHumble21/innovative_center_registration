@@ -4,6 +4,7 @@ import Lottie from "react-lottie";
 import login from "./login.json";
 import loading from "./loading.json";
 import axios from "axios";
+import { BASE_URL } from "../../constants/baseurl";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ function AdminLogin() {
     };
 
     axios
-      .post(`/admin/login`, admin)
+      .post(BASE_URL + `/admin/login`, admin)
       .then((response) => {
         if (response.data.admin === true) {
           setIsLoading(false);

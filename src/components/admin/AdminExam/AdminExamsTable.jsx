@@ -1,15 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { BiEdit } from "react-icons/bi";
-import { MdDelete, MdOutlineDeleteOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
+import React from "react";
+import { MdDelete } from "react-icons/md";
+import { BASE_URL } from "../../../constants/baseurl";
 
 function AdminExamsTable({ head = [], body = [] }) {
-  const [dColor, setDcolor] = useState("#e96479");
+  // const [dColor, setDcolor] = useState("#e96479");
   const delete_exam = (exam_id) => {
     console.log(exam_id);
     axios
-      .post("/api/delete_ielts_exam", { exam_id })
+      .post(BASE_URL + "/api/delete_ielts_exam", { exam_id })
       .then((response) => {
         const { status } = response.data;
         if (status === "deleted") {
@@ -23,7 +22,7 @@ function AdminExamsTable({ head = [], body = [] }) {
   const delete_ielts_exam = (exam_id) => {
     console.log(exam_id);
     axios
-      .post("/api/delete_ielts_exam", { exam_id })
+      .post(BASE_URL + "/api/delete_ielts_exam", { exam_id })
       .then((response) => {
         const { status } = response.data;
         console.log(response.data);

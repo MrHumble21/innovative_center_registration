@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../../../constants/baseurl";
 
 import AdminTable from "../AdminExam/Edit/Table";
 
@@ -7,7 +8,7 @@ const Admin = () => {
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
-    axios.get("/api/allUsers").then((res) => {
+    axios.get(BASE_URL + "/api/allUsers").then((res) => {
       console.log(users);
       setUsers(res.data.users);
     });

@@ -5,6 +5,7 @@ import { ExamNames } from "../../../../constants/exams";
 import axios from "axios";
 import datepicker from "../cal.json";
 import { useLocation } from "react-router-dom";
+import { BASE_URL } from "../../../../constants/baseurl";
 
 const ExamEdit = () => {
   const exam_data = useLocation().state;
@@ -24,7 +25,7 @@ const ExamEdit = () => {
 
   const edit_exam = async () => {
     await axios
-      .put("/api/exams/edit", {
+      .put(BASE_URL + "/api/exams/edit", {
         exam: {
           exam_type: title,
           start_date: start,

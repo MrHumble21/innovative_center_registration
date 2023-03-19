@@ -1,14 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { MdDelete, MdOutlineDeleteOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
+import React from "react";
+import { MdDelete } from "react-icons/md";
 import { AiOutlineCloudDownload } from "react-icons/ai";
+import { BASE_URL } from "../../../../constants/baseurl";
 
 function AdminTable({ head = [], body = [] }) {
-  const [dColor, setDcolor] = useState("#e96479");
   const mark_as_paid = (user_id, user) => {
     axios
-      .post("/api/mark_as_paid", { user_id, user })
+      .post(BASE_URL + "/api/mark_as_paid", { user_id, user })
       .then((response) => {
         const { is_paid } = response.data;
         if (is_paid) {
@@ -22,7 +21,7 @@ function AdminTable({ head = [], body = [] }) {
   // ----------------------------------------------------------------
   const mark_IELTS_as_paid = (user_id, user) => {
     axios
-      .post("/api/mark_IELTS_as_paid", { user_id, user })
+      .post(BASE_URL + "/api/mark_IELTS_as_paid", { user_id, user })
       .then((response) => {
         const { is_paid } = response.data;
         if (is_paid) {
@@ -37,7 +36,7 @@ function AdminTable({ head = [], body = [] }) {
 
   const mark_IELTS_as_not_paid = (user_id, user) => {
     axios
-      .post("/api/mark_IELTS_as_not_paid", { user_id, user })
+      .post(BASE_URL + "/api/mark_IELTS_as_not_paid", { user_id, user })
       .then((response) => {
         const { is_paid } = response.data;
         console.log(response.data);
@@ -53,7 +52,7 @@ function AdminTable({ head = [], body = [] }) {
   //----------------------------------------------------------------
   const mark_as_not_paid = (user_id, user) => {
     axios
-      .post("/api/mark_as_not_paid", { user_id, user })
+      .post(BASE_URL + "/api/mark_as_not_paid", { user_id, user })
       .then((response) => {
         const { is_paid } = response.data;
         if (!is_paid) {
@@ -68,7 +67,7 @@ function AdminTable({ head = [], body = [] }) {
   const delete_user = (user_id) => {
     console.log(user_id);
     axios
-      .post("/api/delete_user", { user_id })
+      .post(BASE_URL + "/api/delete_user", { user_id })
       .then((response) => {
         const { status } = response.data;
         if (status === "deleted") {
@@ -82,7 +81,7 @@ function AdminTable({ head = [], body = [] }) {
   const delete_ielts_user = (user_id) => {
     console.log(user_id);
     axios
-      .post("/api/delete_ielts_user", { user_id })
+      .post(BASE_URL + "/api/delete_ielts_user", { user_id })
       .then((response) => {
         const { status } = response.data;
         if (status === "deleted") {
@@ -140,7 +139,7 @@ function AdminTable({ head = [], body = [] }) {
                   ) : (
                     <td>
                       <center>
-                        <a target={"_blank"} href={body.image}>
+                        <a target={"_blank"} href={body.image} rel="noreferrer">
                           <AiOutlineCloudDownload size={30} />
                         </a>
                       </center>

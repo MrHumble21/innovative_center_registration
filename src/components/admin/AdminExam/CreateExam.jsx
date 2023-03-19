@@ -4,6 +4,7 @@ import Lottie from "react-lottie";
 import datepicker from "./cal.json";
 import { ExamNames } from "../../../constants/exams";
 import axios from "axios";
+import { BASE_URL } from "../../../constants/baseurl";
 
 const defaultOptions = {
   loop: true,
@@ -22,7 +23,7 @@ const CreateExam = () => {
 
   const create_exam = async () => {
     await axios
-      .post("/api/exam", {
+      .post(BASE_URL + "/api/exam", {
         exam_type: title,
         exam_date: start,
         price: price,

@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../../../constants/baseurl";
 import AdminExamsTable from "./AdminExamsTable";
-
-import AdminTable from "./Edit/Table";
 
 const AdminExams = () => {
   const [exams, setExams] = useState([]);
 
   const fetchUsers = async () => {
-    axios.get("/api/allExams").then((res) => {
+    axios.get(BASE_URL + "/api/allExams").then((res) => {
       setExams(res.data.exams);
     });
   };

@@ -16,6 +16,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Error from "../error/Error";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
+import { BASE_URL } from "../../constants/baseurl";
 
 const defaultOptions = {
   loop: true,
@@ -66,7 +67,7 @@ function CustomForm() {
       };
 
       axios
-        .post("/api/user", data)
+        .post(BASE_URL + "/api/user", data)
         .then((response) => {
           if (response.status === 200) {
             setError(false);
@@ -91,7 +92,7 @@ function CustomForm() {
 
   const getExamData = (ex) => {
     axios
-      .post("/api/exam/get_date", { exam_type: ex })
+      .post(BASE_URL + "/api/exam/get_date", { exam_type: ex })
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
         console.log(response.data);

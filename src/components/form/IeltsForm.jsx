@@ -8,6 +8,7 @@ import CustomInput from "./CustomInput";
 import axios from "axios";
 import Error from "../error/Error";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
+import { BASE_URL } from "../../constants/baseurl";
 
 const defaultOptions = {
   loop: true,
@@ -42,7 +43,7 @@ function IeltsForm() {
   const create_ielts_user = async () => {
     if (termsAndConditions) {
       await axios
-        .post("/api/ielts_user", {
+        .post(BASE_URL + "/api/ielts_user", {
           first_name: firstName,
           last_name: lastName,
           phone: phone,
