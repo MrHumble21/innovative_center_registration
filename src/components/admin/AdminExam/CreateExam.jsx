@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import CustomInput from "../form/CustomInput";
+import CustomInput from "../../form/CustomInput";
 import Lottie from "react-lottie";
 import datepicker from "./cal.json";
-import { ExamNames } from "../../constants/exams";
+import { ExamNames } from "../../../constants/exams";
 import axios from "axios";
 
 const defaultOptions = {
@@ -18,15 +18,14 @@ const CreateExam = () => {
   const [title, setTitle] = useState("");
   const [start, setStart] = useState("");
   const [price, setPrice] = useState(0);
-  const [end, setEnd] = useState("");
+  // const [end, setEnd] = useState("");
 
   const create_exam = async () => {
     await axios
       .post("/api/exam", {
         exam_type: title,
-        start_date: start,
+        exam_date: start,
         price: price,
-        end_date: end,
       })
       .then((res) => {
         if (res.data.status === "success") {
@@ -60,13 +59,14 @@ const CreateExam = () => {
                 className="form-select my-2"
                 aria-label="Default select example"
               >
+                <option value=""></option>
                 {ExamNames.map((name, i) => (
                   <option key={i} value={name.name}>
                     {name.name}
                   </option>
                 ))}
               </select>
-              <label htmlFor="start">Start date </label>
+              <label htmlFor="start">Exam Date </label>
               <input
                 type="date"
                 className="date-picker- my-2 form-control-feedback form-control p-2"
@@ -76,18 +76,6 @@ const CreateExam = () => {
                 onChange={(event) => {
                   console.log(event.target.value);
                   setStart(event.target.value);
-                }}
-              />
-              <label>End date </label>
-              <input
-                type="date"
-                className="date-picker- my-2 form-control-feedback form-control p-2"
-                name=""
-                id=""
-                value={end}
-                onChange={(event) => {
-                  console.log(event.target.value);
-                  setEnd(event.target.value);
                 }}
               />
 

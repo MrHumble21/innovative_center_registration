@@ -9,15 +9,18 @@ import "./index.css";
 import Landing from "./pages/Landing/Landing";
 import CustomForm from "./components/form/CustomForm";
 import IeltsForm from "./components/form/IeltsForm";
-import Datatable from "./components/admin/Table";
+import Datatable from "./components/admin/AdminExam/Edit/Table";
 
-import CreateExam from "./components/admin/CreateExam";
+import CreateExam from "./components/admin/AdminExam/CreateExam";
 import TestForm from "./components/form/TestForm";
-import Admin from "./components/admin/Admin";
+import Admin from "./components/admin/AdminCandidate/Admin";
 import Navbar from "./components/navbar/Navbar";
-import AdminTable from "./components/admin/Table";
-import AdminExams from "./components/admin/AdminExams";
-import ExamEdit from "./components/admin/ExamEdit";
+import AdminTable from "./components/admin/AdminExam/Edit/Table";
+import AdminExams from "./components/admin/AdminExam/AdminExams";
+import ExamEdit from "./components/admin/AdminExam/Edit/ExamEdit";
+import AdminLogin from "./components/admin login/AdminLogin";
+import AdminCategoryRoutes from "./pages/admin/AdminCategoryRoutes";
+import ExamsArrangement from "./utils/config/Exams arragement/ExamsArrangement";
 
 const router = createBrowserRouter([
   {
@@ -32,13 +35,30 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
+        <AdminLogin />
+      </>
+    ),
+  },
+  {
+    path: "/admin/candidates",
+    element: (
+      <>
+        {/* <Navbar /> */}
         <Admin />
       </>
     ),
   },
   {
-    path: "/create_exam",
+    path: "/admin/authorized",
+    element: (
+      <>
+        <AdminCategoryRoutes />
+      </>
+    ),
+  },
+  {
+    path: "/admin/create_exam",
     element: (
       <>
         <Navbar />
@@ -50,8 +70,15 @@ const router = createBrowserRouter([
     path: "/admin/exams",
     element: (
       <>
-        <Navbar />
         <AdminExams />
+      </>
+    ),
+  },
+  {
+    path: "/admin/arrange_exams",
+    element: (
+      <>
+        <ExamsArrangement />
       </>
     ),
   },

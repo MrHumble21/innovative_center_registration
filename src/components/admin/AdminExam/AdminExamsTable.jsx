@@ -1,11 +1,40 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { BiEdit } from "react-icons/bi";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { MdDelete, MdOutlineDeleteOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function AdminExamsTable({ head = [], body = [] }) {
   const [dColor, setDcolor] = useState("#e96479");
+  const delete_exam = (exam_id) => {
+    console.log(exam_id);
+    axios
+      .post("/api/delete_ielts_exam", { exam_id })
+      .then((response) => {
+        const { status } = response.data;
+        if (status === "deleted") {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const delete_ielts_exam = (exam_id) => {
+    console.log(exam_id);
+    axios
+      .post("/api/delete_ielts_exam", { exam_id })
+      .then((response) => {
+        const { status } = response.data;
+        console.log(response.data);
+        if (status === "deleted") {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <div className="container-fluid table-container my-5">
@@ -39,16 +68,33 @@ function AdminExamsTable({ head = [], body = [] }) {
                 <tr key={i}>
                   <th scope="row">{i + 1}</th>
                   <td>{b.exam_type}</td>
-                  <td>{b.start_date}</td>
-                  <td>{b.end_date || "Not provided"}</td>
-                  <td>{b.price || "Not provided"}</td>
-                  <td>
-                    <Link state={b} to={"/admin/exams/edit"}>
-                      <button className="btn btn-primary rounded-2 d-flex justify-conetent-center align-items-center p-2">
-                        <BiEdit />
-                      </button>
-                    </Link>
-                  </td>
+                  <td>{b.exam_date}</td>
+                  <td>{b.price || "Not provided"} UZS </td>
+                  {b.exam_type === "IELTS Mock" ? (
+                    <td className="">
+                      <center>
+                        <MdDelete
+                          onClick={() => {
+                            delete_ielts_exam(b._id);
+                          }}
+                          color={"red"}
+                          size={30}
+                        />
+                      </center>
+                    </td>
+                  ) : (
+                    <td className="">
+                      <center>
+                        <MdDelete
+                          onClick={() => {
+                            delete_exam(b._id);
+                          }}
+                          color={"red"}
+                          size={30}
+                        />
+                      </center>
+                    </td>
+                  )}
                 </tr>
               );
             })}

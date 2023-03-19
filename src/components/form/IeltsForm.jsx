@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import form_animation from "./form_animation.json";
 import "react-phone-number-input/style.css";
@@ -26,7 +26,19 @@ function IeltsForm() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
-
+  const [availableDate, setAvailableDate] = useState([]);
+  const [choosenDate, setChoosenDate] = useState("");
+  const getExamData = (ex) => {
+    axios
+      .post("/api/exam/get_date", { exam_type: "IELTS Mock" })
+      .then((response) => {
+        setAvailableDate([...availableDate, ...response.data]);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const create_ielts_user = async () => {
     if (termsAndConditions) {
       await axios
@@ -34,6 +46,7 @@ function IeltsForm() {
           first_name: firstName,
           last_name: lastName,
           phone: phone,
+          exam_date: choosenDate,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -54,6 +67,9 @@ function IeltsForm() {
     }
   };
 
+  useEffect(() => {
+    getExamData();
+  }, []);
   return (
     <>
       <div
@@ -113,7 +129,20 @@ function IeltsForm() {
                     setLastName(e.target.value);
                   }}
                 />
-
+                <select
+                  required
+                  className="form-select my-3"
+                  aria-label="Default select example"
+                  onChange={(e) => {
+                    setChoosenDate(e.target.value);
+                    console.log(choosenDate);
+                  }}
+                >
+                  <option selected>Available dates</option>
+                  {availableDate.map((e) => {
+                    return <option value={e.exam_date}>{e.exam_date}</option>;
+                  })}
+                </select>
                 <div className="form-group">
                   <label htmlFor="exampleSelect1" className="form-label mt-2 ">
                     Phone Number

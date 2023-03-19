@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CustomInput from "../form/CustomInput";
+import CustomInput from "../../../form/CustomInput";
 import Lottie from "react-lottie";
-import { ExamNames } from "../../constants/exams";
+import { ExamNames } from "../../../../constants/exams";
 import axios from "axios";
-import datepicker from "./cal.json";
+import datepicker from "../cal.json";
 import { useLocation } from "react-router-dom";
 
 const ExamEdit = () => {

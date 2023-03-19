@@ -8,10 +8,9 @@ const Landing = () => {
   return (
     <div
       style={{
-        backgroundColor: "#F9F8FB",
         minHeight: "100vh",
       }}
-      className="container-fluid"
+      className="container-fluid gradient-bg"
     >
       <div className="container d-flex justify-content-center">
         <img className="innovative-logo" src={innovative} alt="" />

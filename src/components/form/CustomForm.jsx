@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Lottie from "react-lottie";
 import { regions } from "../../constants/regions";
@@ -12,8 +12,7 @@ import CustomRadioButton from "./CustomRadioButton";
 import { useLocation, useParams } from "react-router";
 import IeltsForm from "./IeltsForm";
 import { storage } from "../../utils/firebase/firebase";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { BASE_URL } from "../../constants/baseurl";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Error from "../error/Error";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
@@ -33,6 +32,8 @@ function CustomForm() {
   const [email, setEmail] = useState("");
   const [passport, setPassport] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  const [availableDate, setAvailableDate] = useState([]);
+  const [choosenDate, setChoosenDate] = useState("");
   const [phone, setPhone] = useState("");
   const [image, setImage] = useState("");
   const [gender, setGender] = useState("");
@@ -40,6 +41,7 @@ function CustomForm() {
   const [termsAndConditions, setTermsAndConditions] = useState(false);
   const [progresspercent, setProgresspercent] = useState(0);
   const [error, setError] = useState(false);
+  const [isSpinning, setIsSpinning] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { exam } = useParams();
   const exam_name = useLocation().state;
@@ -59,6 +61,7 @@ function CustomForm() {
         image: image,
         gender: gender,
         exam_type: exam_name,
+        exam_date: choosenDate,
         is_paid: false,
       };
 
@@ -81,9 +84,24 @@ function CustomForm() {
     } else {
       alert("Please read and accept Terms & Conditions");
     }
+
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
   };
 
+  const getExamData = (ex) => {
+    axios
+      .post("/api/exam/get_date", { exam_type: ex })
+      .then((response) => {
+        setAvailableDate([...availableDate, ...response.data]);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const uploadImage = async (e) => {
+    setIsSpinning(true);
     e.preventDefault();
     const file = e.target[0]?.files[0];
 
@@ -107,20 +125,19 @@ function CustomForm() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImage(downloadURL);
           console.log(downloadURL);
+          setIsSpinning(false);
         });
       }
     );
   };
+  useEffect(() => {
+    getExamData(exam_name);
+  }, []);
   return (
     <>
       {exam !== "14" ? (
-        <div
-          style={{
-            backgroundColor: "#F9F8FB",
-          }}
-          className="container-fluid p-5"
-        >
-          <div className="container bg-white custom-shadow  ">
+        <div style={{}} className="container-fluid p-5 gradient-bg">
+          <div className="container-fluid bg-white custom-shadow ">
             <div className="container p-3">
               <div className="row">
                 <div className="col-md-6 col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
@@ -185,6 +202,20 @@ function CustomForm() {
                       setPassport(e.target.value);
                     }}
                   />
+                  <select
+                    required
+                    className="form-select my-3"
+                    aria-label="Default select example"
+                    onChange={(e) => {
+                      setChoosenDate(e.target.value);
+                      console.log(choosenDate);
+                    }}
+                  >
+                    <option selected>Available dates</option>
+                    {availableDate.map((e) => {
+                      return <option value={e.exam_date}>{e.exam_date}</option>;
+                    })}
+                  </select>
 
                   <CustomInput
                     type={"date"}
@@ -291,10 +322,23 @@ function CustomForm() {
                             backgroundColor: app_colors.violet,
                             borderRadius: "10px",
                           }}
+                          onClick={() => {
+                            setIsSpinning(true);
+                          }}
                           className="badge p-2 my-2 fs-6"
                         >
-                          Upload image
-                        </button>
+                          Upload image{" "}
+                          {isSpinning && (
+                            <div
+                              className="spinner-border text-white mx-2"
+                              role="status"
+                            >
+                              <span className="visually-hidden">
+                                Loading...
+                              </span>
+                            </div>
+                          )}
+                        </button>{" "}
                         <span
                           onClick={() => {
                             setImage("");
@@ -311,6 +355,7 @@ function CustomForm() {
                       </div>
                     </div>
                   </form>
+                  {/* {image && setIsSpinning(false)} */}
                   {!image ? (
                     <h6 className=" m-2">
                       Please choose image of your passport or ID, and wait until
@@ -374,17 +419,19 @@ function CustomForm() {
                   {error && <Error error_message={errorMessage} />}
                   <div className=" d-flex justify-content-start mt-2">
                     {image && (
-                      <button
-                        type="button"
-                        className="custom-btn text-white my-2 "
-                        style={{
-                          backgroundColor: app_colors.violet,
-                          borderRadius: "10px",
-                        }}
-                        onClick={handleSubmit}
-                      >
-                        Register
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          className="custom-btn d-flex justify-content-center align-items-center text-white my-2 "
+                          style={{
+                            backgroundColor: app_colors.violet,
+                            borderRadius: "10px",
+                          }}
+                          onClick={handleSubmit}
+                        >
+                          Register
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AdminExamsTable from "./AdminExamsTable";
 
-import AdminTable from "./Table";
+import AdminTable from "./Edit/Table";
 
 const AdminExams = () => {
   const [exams, setExams] = useState([]);
@@ -19,14 +19,7 @@ const AdminExams = () => {
   return (
     <div>
       <AdminExamsTable
-        head={[
-          "No",
-          "Exam type",
-          "Start date",
-          "End date",
-          "Price",
-          "Edit Exam",
-        ]}
+        head={["No", "Exam type", "Exam Date", "Price", "Delete"]}
         body={exams}
       />
     </div>

@@ -19,7 +19,38 @@ function AdminTable({ head = [], body = [] }) {
         console.log(error);
       });
   };
+  // ----------------------------------------------------------------
+  const mark_IELTS_as_paid = (user_id, user) => {
+    axios
+      .post("/api/mark_IELTS_as_paid", { user_id, user })
+      .then((response) => {
+        const { is_paid } = response.data;
+        if (is_paid) {
+          window.location.reload();
+        }
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
+  const mark_IELTS_as_not_paid = (user_id, user) => {
+    axios
+      .post("/api/mark_IELTS_as_not_paid", { user_id, user })
+      .then((response) => {
+        const { is_paid } = response.data;
+        console.log(response.data);
+        if (!is_paid) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //----------------------------------------------------------------
   const mark_as_not_paid = (user_id, user) => {
     axios
       .post("/api/mark_as_not_paid", { user_id, user })
@@ -38,6 +69,20 @@ function AdminTable({ head = [], body = [] }) {
     console.log(user_id);
     axios
       .post("/api/delete_user", { user_id })
+      .then((response) => {
+        const { status } = response.data;
+        if (status === "deleted") {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const delete_ielts_user = (user_id) => {
+    console.log(user_id);
+    axios
+      .post("/api/delete_ielts_user", { user_id })
       .then((response) => {
         const { status } = response.data;
         if (status === "deleted") {
@@ -88,55 +133,110 @@ function AdminTable({ head = [], body = [] }) {
                   <td>{body.phone}</td>
                   <td>{body.email || "Not provided"}</td>
                   <td>{body.exam_type}</td>
-                  <td>
-                    <center>
-                      <a target={"_blank"} href={body.image}>
-                        <AiOutlineCloudDownload size={30} />
-                      </a>
-                    </center>
-                  </td>
-                  <td>
-                    {!body.is_paid ? (
-                      <span
-                        role={"button"}
-                        onClick={() => {
-                          mark_as_paid(body._id, body);
-                        }}
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "bold",
-                        }}
-                        className="badge rounded-pill text-bg-danger "
-                      >
-                        <b> Not paid</b>
-                      </span>
-                    ) : (
-                      <span
-                        onClick={() => {
-                          mark_as_not_paid(body._id, body);
-                        }}
-                        role={"button"}
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "bold",
-                        }}
-                        className="badge rounded-pill text-bg-primary"
-                      >
-                        <b>Paid</b>
-                      </span>
-                    )}
-                  </td>
-                  <td className="">
-                    <center>
-                      <MdDelete
-                        onClick={() => {
-                          delete_user(body._id);
-                        }}
-                        color={"red"}
-                        size={30}
-                      />
-                    </center>
-                  </td>
+                  {body.exam_type === "IELTS Mock" ? (
+                    <td>
+                      <center>Not available</center>
+                    </td>
+                  ) : (
+                    <td>
+                      <center>
+                        <a target={"_blank"} href={body.image}>
+                          <AiOutlineCloudDownload size={30} />
+                        </a>
+                      </center>
+                    </td>
+                  )}
+
+                  {body.exam_type === "IELTS Mock" ? (
+                    <td>
+                      {!body.is_paid ? (
+                        <span
+                          role={"button"}
+                          onClick={() => {
+                            mark_IELTS_as_paid(body._id, body);
+                          }}
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                          className="badge rounded-pill text-bg-danger "
+                        >
+                          <b> Not paid</b>
+                        </span>
+                      ) : (
+                        <span
+                          onClick={() => {
+                            mark_IELTS_as_not_paid(body._id, body);
+                          }}
+                          role={"button"}
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                          className="badge rounded-pill text-bg-primary"
+                        >
+                          <b>Paid</b>
+                        </span>
+                      )}
+                    </td>
+                  ) : (
+                    <td>
+                      {!body.is_paid ? (
+                        <span
+                          role={"button"}
+                          onClick={() => {
+                            mark_as_paid(body._id, body);
+                          }}
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                          className="badge rounded-pill text-bg-danger "
+                        >
+                          <b> Not paid</b>
+                        </span>
+                      ) : (
+                        <span
+                          onClick={() => {
+                            mark_as_not_paid(body._id, body);
+                          }}
+                          role={"button"}
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                          className="badge rounded-pill text-bg-primary"
+                        >
+                          <b>Paid</b>
+                        </span>
+                      )}
+                    </td>
+                  )}
+                  {body.exam_type === "IELTS Mock" ? (
+                    <td className="">
+                      <center>
+                        <MdDelete
+                          onClick={() => {
+                            delete_ielts_user(body._id);
+                          }}
+                          color={"red"}
+                          size={30}
+                        />
+                      </center>
+                    </td>
+                  ) : (
+                    <td className="">
+                      <center>
+                        <MdDelete
+                          onClick={() => {
+                            delete_user(body._id);
+                          }}
+                          color={"red"}
+                          size={30}
+                        />
+                      </center>
+                    </td>
+                  )}
                 </tr>
               );
             })}

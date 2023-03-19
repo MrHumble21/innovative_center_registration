@@ -41,3 +41,5 @@ export const ExamNames = exams.map((e, i) => {
 
   return exam;
 });
+
+console.log(ExamNames);
