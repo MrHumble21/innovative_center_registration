@@ -21,6 +21,7 @@ import ExamEdit from "./components/admin/AdminExam/Edit/ExamEdit";
 import AdminLogin from "./components/admin login/AdminLogin";
 import AdminCategoryRoutes from "./pages/admin/AdminCategoryRoutes";
 import ExamsArrangement from "./utils/config/Exams arragement/ExamsArrangement";
+import TermsAndConditions from "./pages/terms/TermsAndConditions";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <ExamEdit />
+      </>
+    ),
+  },
+  {
+    path: "/agree/termsAndConditions",
+    element: (
+      <>
+        <TermsAndConditions />
       </>
     ),
   },

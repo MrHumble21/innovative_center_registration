@@ -17,6 +17,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import Error from "../error/Error";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { BASE_URL } from "../../constants/baseurl";
+import { Link } from "react-router-dom";
 
 const defaultOptions = {
   loop: true,
@@ -418,7 +419,9 @@ function CustomForm() {
                           className="form-check-label"
                           htmlFor="flexCheckDefault"
                         >
-                          I have read and agreed on <b>Term and Contions</b>
+                          <Link to={"/agree/termsAndConditions"}>
+                            I have read and agreed on <b>Term and Contions</b>
+                          </Link>
                         </label>
                       </div>
                     </fieldset>
