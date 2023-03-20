@@ -22,6 +22,7 @@ import AdminLogin from "./components/admin login/AdminLogin";
 import AdminCategoryRoutes from "./pages/admin/AdminCategoryRoutes";
 import ExamsArrangement from "./utils/config/Exams arragement/ExamsArrangement";
 import TermsAndConditions from "./pages/terms/TermsAndConditions";
+import Payment from "./pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,14 @@ const router = createBrowserRouter([
     element: (
       <>
         <TermsAndConditions />
+      </>
+    ),
+  },
+  {
+    path: "/payment/howto",
+    element: (
+      <>
+        <Payment />
       </>
     ),
   },

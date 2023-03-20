@@ -54,6 +54,9 @@ function IeltsForm() {
           if (response.status === 200) {
             setError(false);
             setSuccess(true);
+            setTimeout(() => {
+              window.location.href = "/payment/howto";
+            }, 1000);
           }
         })
         .catch((error) => {
