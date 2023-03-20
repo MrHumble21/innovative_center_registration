@@ -6,7 +6,6 @@ export const regions = [
   "Navoi",
   "Namangan",
   "Samarkand",
-  "Samarkand",
   "Sirdarya",
   "Surkhandarya",
   "Tashkent",
