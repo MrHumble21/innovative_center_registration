@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { app_colors } from "../../utils/colors";
 import cambridge from "./cam.png";
+import lingua from "./lingua.png";
+import delta from "./delta.png";
 import ielts from "./ielts.png";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -15,6 +17,19 @@ const ExamCard = ({
   id,
   info,
 }) => {
+  const imageSrc = (title) => {
+    switch (title) {
+      case "TKT":
+        return delta;
+      case "Delta Module One":
+        return delta;
+      case "Linguaskill":
+        return lingua;
+      default:
+        return cambridge;
+    }
+  };
+
   return (
     <div
       style={{
@@ -56,7 +71,7 @@ const ExamCard = ({
           style={{
             width: "100px",
           }}
-          src={id == "14" ? ielts : cambridge}
+          src={imageSrc(title)}
           alt=""
         />
       </div>

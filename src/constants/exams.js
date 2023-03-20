@@ -11,7 +11,7 @@ const exams = [
   "C2 Proficiency",
   "Delta Module One",
   "TKT",
-  "Lingua skill",
+  "Linguaskill",
   "IELTS Mock",
 ];
 
