@@ -16,6 +16,7 @@ const Admin = () => {
 
   useEffect(() => {
     fetchUsers();
+    console.log("users fetched");
   }, []);
   return (
     <div>
@@ -36,6 +37,7 @@ const Admin = () => {
         ]}
         body={users}
       />
+      {console.log(users)}
     </div>
   );
 };

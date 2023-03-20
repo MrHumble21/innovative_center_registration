@@ -5,14 +5,11 @@ import { AiOutlineCloudDownload } from "react-icons/ai";
 import { BASE_URL } from "../../../../constants/baseurl";
 
 function AdminTable({ head = [], body = [] }) {
-  const mark_as_paid = (user_id, user) => {
-    axios
+  const mark_as_paid = async (user_id, user) => {
+    await axios
       .post(BASE_URL + "/api/mark_as_paid", { user_id, user })
       .then((response) => {
-        const { is_paid } = response.data;
-        if (is_paid) {
-          window.location.reload();
-        }
+        response && window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -20,30 +17,30 @@ function AdminTable({ head = [], body = [] }) {
   };
   //dddd
   // ----------------------------------------------------------------
-  const mark_IELTS_as_paid = (user_id, user) => {
-    axios
+  const mark_IELTS_as_paid = async (user_id, user) => {
+    console.log("yes");
+
+    await axios
       .post(BASE_URL + "/api/mark_IELTS_as_paid", { user_id, user })
       .then((response) => {
         const { is_paid } = response.data;
-        if (is_paid) {
-          window.location.reload();
-        }
-        console.log(response.data);
+        window.location.reload();
+
+        console.log(is_paid);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const mark_IELTS_as_not_paid = (user_id, user) => {
-    axios
+  const mark_IELTS_as_not_paid = async (user_id, user) => {
+    console.log("not");
+    await axios
       .post(BASE_URL + "/api/mark_IELTS_as_not_paid", { user_id, user })
       .then((response) => {
-        const { is_paid } = response.data;
+        // const { is_paid } = response.data;
         console.log(response.data);
-        if (!is_paid) {
-          window.location.reload();
-        }
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -55,10 +52,7 @@ function AdminTable({ head = [], body = [] }) {
     axios
       .post(BASE_URL + "/api/mark_as_not_paid", { user_id, user })
       .then((response) => {
-        const { is_paid } = response.data;
-        if (!is_paid) {
-          window.location.reload();
-        }
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -71,9 +65,7 @@ function AdminTable({ head = [], body = [] }) {
       .post(BASE_URL + "/api/delete_user", { user_id })
       .then((response) => {
         const { status } = response.data;
-        if (status === "deleted") {
-          window.location.reload();
-        }
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -149,10 +141,12 @@ function AdminTable({ head = [], body = [] }) {
 
                   {body.exam_type === "IELTS Mock" ? (
                     <td>
+                      {console.log({ xx: body.is_paid })}
                       {!body.is_paid ? (
                         <span
                           role={"button"}
                           onClick={() => {
+                            console.log("paid");
                             mark_IELTS_as_paid(body._id, body);
                           }}
                           style={{
@@ -161,11 +155,13 @@ function AdminTable({ head = [], body = [] }) {
                           }}
                           className="badge rounded-pill text-bg-danger "
                         >
-                          <b> Not paid</b>
+                          <b> Not paid IELTS Mock</b>
                         </span>
                       ) : (
                         <span
                           onClick={() => {
+                            console.log("not paid IELTS Mock");
+
                             mark_IELTS_as_not_paid(body._id, body);
                           }}
                           role={"button"}
@@ -175,7 +171,7 @@ function AdminTable({ head = [], body = [] }) {
                           }}
                           className="badge rounded-pill text-bg-primary"
                         >
-                          <b>Paid</b>
+                          <b>Paid IELTS Mock</b>
                         </span>
                       )}
                     </td>
@@ -185,7 +181,9 @@ function AdminTable({ head = [], body = [] }) {
                         <span
                           role={"button"}
                           onClick={() => {
-                            mark_as_paid(body._id, body);
+                            mark_as_paid(body._id, body).then(() => {
+                              window.location.reload();
+                            });
                           }}
                           style={{
                             fontSize: "10px",
