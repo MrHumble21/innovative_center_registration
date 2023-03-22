@@ -57,15 +57,11 @@ function IeltsForm() {
             setTimeout(() => {
               window.location.href = "/payment/howto";
             }, 1000);
-            console.log(first_name);
-            console.log(last_name);
-            console.log(phone);
-            console.log(exam_date);
           }
         })
         .catch((error) => {
           setError(true);
-//           console.log(error);
+          console.log(error);
           setErrorMessage(
             error.response.data.error._message +
               ". Please try again with filling in all the fields!"
