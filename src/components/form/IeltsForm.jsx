@@ -61,7 +61,7 @@ function IeltsForm() {
         })
         .catch((error) => {
           setError(true);
-          console.log(error);
+//           console.log(error);
           setErrorMessage(
             error.response.data.error._message +
               ". Please try again with filling in all the fields!"
