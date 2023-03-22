@@ -32,13 +32,10 @@ const Admin = () => {
           onChange={(event) => {
             setSearchQuery(event.target.value);
             setFilteredUsers(
-              users.filter(
-                (user) =>
-                  user.first_name +
-                  " " +
-                  user.last_name
-                    .toLowerCase()
-                    .includes(event.target.value.toLowerCase())
+              users.filter((user) =>
+                user.first_name
+                  .toLowerCase()
+                  .includes(event.target.value.toLowerCase())
               )
             );
             console.log({ filteredUsers });
