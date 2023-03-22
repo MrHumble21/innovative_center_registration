@@ -78,9 +78,9 @@ function CustomForm() {
           if (response.status === 200) {
             setError(false);
             setSuccess(true);
-            setTimeout(() => {
-              window.location.href = "/payment/howto";
-            }, 2000);
+            // setTimeout(() => {
+            //   window.location.href = "/payment/howto";
+            // }, 2000);
           }
         })
         .catch((error) => {
