@@ -165,6 +165,7 @@ function IeltsForm() {
                     placeholder="Enter phone number"
                     value={phone}
                     onChange={setPhone}
+                     console.log(phone)
                   />
                 </div>
                 <div className="container my-3">
