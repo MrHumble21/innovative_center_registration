@@ -88,7 +88,7 @@ function AdminTable({ head = [], body = [] }) {
 
   return (
     <>
-      <div className="container-fluid table-container my-5">
+      <div className="container-fluid table-container my-3">
         <table
           style={{
             borderRadius: "10px",

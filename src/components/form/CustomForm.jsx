@@ -18,6 +18,8 @@ import Error from "../error/Error";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { BASE_URL } from "../../constants/baseurl";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const defaultOptions = {
   loop: true,
@@ -48,7 +50,8 @@ function CustomForm() {
   const { exam } = useParams();
   const exam_name = useLocation().state;
   const [success, setSuccess] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [price, setPrice] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (termsAndConditions && image !== "") {
@@ -97,11 +100,14 @@ function CustomForm() {
   };
 
   const getExamData = (ex) => {
+    setIsLoading(true);
     axios
       .post(BASE_URL + "/api/exam/get_date", { exam_type: ex })
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
+        setPrice(response.data[0]["price"]);
         console.log(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -159,6 +165,15 @@ function CustomForm() {
                     Register for {exam_name}
                   </h2>
                   {success && <SuccessMessage examName={" " + exam_name} />}
+
+                  <h4>
+                    Price:{" "}
+                    {isLoading ? (
+                      <Skeleton count={1} width={100} />
+                    ) : (
+                      <span>{price} UZS</span>
+                    )}
+                  </h4>
                   <CustomInput
                     type={"text"}
                     label={"First Name (per PASSPORT)"}
@@ -292,18 +307,14 @@ function CustomForm() {
                       setEmail(e.target.value);
                     }}
                   />
-                  <h6 className="mt-2 ">Attach passport</h6>
-                  {/* <CustomInput
-                    htmlfor={"image_upload"}
-                    type={"file"}
-                    className={"visually-hidden"}
-                    id={"image_upload"}
-                    handlechange={(e) => {
-                      setImage(e.target.value);
-                    }}
-                    value={image}
-                    label={<BiImageAdd size={80} color={app_colors.violet} />}
-                  /> */}
+                  <div
+                    style={{ borderRadius: "10px" }}
+                    class="alert alert-info"
+                    role="alert"
+                  >
+                    Please choose your passport image, and click on the upload
+                    button below and wait for it to appear Register button
+                  </div>
 
                   <form onSubmit={uploadImage} className="">
                     <div className="">
