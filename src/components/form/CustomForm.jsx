@@ -77,7 +77,7 @@ function CustomForm() {
         console.log(phone);
           console.log(response);
           if (response.status === 200) {
-//             setError(false);
+            setError(false);
             setSuccess(true);
             // setTimeout(() => {
             //   window.location.href = "/payment/howto";
@@ -106,7 +106,7 @@ function CustomForm() {
       .post(BASE_URL + "/api/exam/get_date", { exam_type: ex })
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
-//         setPrice(response.data[0]["price"]);
+        setPrice(response.data[0]["price"]);
         console.log(response.data);
         setIsLoading(false);
       })
