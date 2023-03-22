@@ -74,6 +74,7 @@ function CustomForm() {
       await axios
         .post(BASE_URL + "/api/user", data)
         .then((response) => {
+        console.log(phone);
           console.log(response);
           if (response.status === 200) {
 //             setError(false);
