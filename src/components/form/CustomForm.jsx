@@ -70,23 +70,23 @@ function CustomForm() {
         is_paid: false,
       };
 
-      console.log(data);
+      // console.log(data);
       await axios
         .post(BASE_URL + "/api/user", data)
         .then((response) => {
-        console.log(phone);
           console.log(response);
-          if (response.status === 200) {
+          console.log({ response });
+          if (response.status === 200 || response.statusText === "OK") {
             setError(false);
             setSuccess(true);
-            // setTimeout(() => {
-            //   window.location.href = "/payment/howto";
-            // }, 2000);
+            setTimeout(() => {
+              window.location.href = "/payment/howto";
+            }, 2000);
           }
         })
         .catch((error) => {
           setError(true);
-          console.log(error);
+          console.log({ error });
           setErrorMessage(
             error.response.data.error._message +
               ". Please try again with filling in all the fields!"
