@@ -76,7 +76,7 @@ function CustomForm() {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            setError(false);
+//             setError(false);
             setSuccess(true);
             // setTimeout(() => {
             //   window.location.href = "/payment/howto";
