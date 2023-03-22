@@ -57,6 +57,10 @@ function IeltsForm() {
             setTimeout(() => {
               window.location.href = "/payment/howto";
             }, 1000);
+            console.log(first_name);
+            console.log(last_name);
+            console.log(phone);
+            console.log(exam_date);
           }
         })
         .catch((error) => {
