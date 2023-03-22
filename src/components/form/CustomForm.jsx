@@ -105,7 +105,7 @@ function CustomForm() {
       .post(BASE_URL + "/api/exam/get_date", { exam_type: ex })
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
-        setPrice(response.data[0]["price"]);
+//         setPrice(response.data[0]["price"]);
         console.log(response.data);
         setIsLoading(false);
       })
