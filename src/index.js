@@ -63,7 +63,7 @@ const router = createBrowserRouter([
     path: "/admin/create_exam",
     element: (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <CreateExam />
       </>
     ),
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
     path: "/admin/exams/edit",
     element: (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <ExamEdit />
       </>
     ),
