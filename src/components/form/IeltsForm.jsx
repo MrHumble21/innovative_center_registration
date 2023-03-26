@@ -124,14 +124,7 @@ function IeltsForm() {
                     <span>{price} UZS</span>
                   )}
                 </h4>
-                <h4>
-                  Exam Time:{" "}
-                  {isLoading ? (
-                    <Skeleton count={1} width={100} />
-                  ) : (
-                    <span>{time}</span>
-                  )}
-                </h4>
+                <h4>Exam Time: 11:00</h4>
                 <CustomInput
                   type={"text"}
                   label={"First Name (per PASSPORT)"}
@@ -169,7 +162,7 @@ function IeltsForm() {
                     console.log(choosenDate);
                   }}
                 >
-                  <option selected>Available dates</option>
+                  <option>Available dates</option>
                   {availableDate.map((e, k) => {
                     return (
                       <option key={k} value={e.exam_date}>
@@ -205,9 +198,9 @@ function IeltsForm() {
                         className="form-check-label"
                         htmlFor="flexCheckDefault"
                       >
-                        <Link to={"/agree/termsAndConditions"}>
+                        <a target={"_blank"} href={"/agree/termsAndConditions"}>
                           I have read and agreed on <b>Term and Contions</b>
-                        </Link>
+                        </a>
                       </label>
                     </div>
                   </fieldset>

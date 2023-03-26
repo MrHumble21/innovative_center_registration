@@ -445,9 +445,13 @@ function CustomForm() {
                           className="form-check-label"
                           htmlFor="flexCheckDefault"
                         >
-                          <Link to={"/agree/termsAndConditions"}>
+                          <a
+                            target={"_blank"}
+                            href={"/agree/termsAndConditions"}
+                            rel="noreferrer"
+                          >
                             I have read and agreed on <b>Term and Contions</b>
-                          </Link>
+                          </a>
                         </label>
                       </div>
                     </fieldset>
