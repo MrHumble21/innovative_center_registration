@@ -24,23 +24,46 @@ const Admin = () => {
   return (
     <div>
       <div className="container-fluid">
-        <input
-          type="search"
-          placeholder="Search Users"
-          value={searchQuery}
-          className="searcUser"
-          onChange={(event) => {
-            setSearchQuery(event.target.value);
-            setFilteredUsers(
-              users.filter((user) =>
-                user.first_name
-                  .toLowerCase()
-                  .includes(event.target.value.toLowerCase())
-              )
-            );
-            console.log({ filteredUsers });
-          }}
-        />
+        <div className="row">
+          <div className="col-sm-12 col-md-6 col-lg-6">
+            <input
+              type="search"
+              placeholder="Search Users"
+              value={searchQuery}
+              className="searcUser"
+              onChange={(event) => {
+                setSearchQuery(event.target.value);
+                setFilteredUsers(
+                  users.filter((user) =>
+                    user.first_name
+                      .toLowerCase()
+                      .includes(event.target.value.toLowerCase())
+                  )
+                );
+                console.log({ filteredUsers });
+              }}
+            />
+          </div>
+          <div className="col-sm-12 col-md-6 col-lg-6">
+            <input
+              type="search"
+              placeholder="Search by Exam type"
+              value={searchQuery}
+              className="searcUser"
+              onChange={(event) => {
+                setSearchQuery(event.target.value);
+                setFilteredUsers(
+                  users.filter((user) =>
+                    user.exam_type
+                      .toLowerCase()
+                      .includes(event.target.value.toLowerCase())
+                  )
+                );
+                console.log({ filteredUsers });
+              }}
+            />
+          </div>
+        </div>
       </div>
       <AdminTable
         head={[
@@ -53,6 +76,8 @@ const Admin = () => {
           "Phone",
           "Email",
           "Exam Type",
+          "Exam Date",
+          "Exam Time",
           "Passport",
           "Paid Status",
           "Delete",

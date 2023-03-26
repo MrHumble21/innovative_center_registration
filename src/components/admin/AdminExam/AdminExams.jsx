@@ -18,7 +18,7 @@ const AdminExams = () => {
   return (
     <div>
       <AdminExamsTable
-        head={["No", "Exam type", "Exam Date", "Price", "Delete"]}
+        head={["No", "Exam type", "Exam Date", "Exam Time", "Price", "Delete"]}
         body={exams}
       />
     </div>

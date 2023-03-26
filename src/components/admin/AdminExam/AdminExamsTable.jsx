@@ -68,6 +68,7 @@ function AdminExamsTable({ head = [], body = [] }) {
                   <th scope="row">{i + 1}</th>
                   <td>{b.exam_type}</td>
                   <td>{b.exam_date}</td>
+                  <td>{b.exam_time}</td>
                   <td>{b.price || "Not provided"} UZS </td>
                   {b.exam_type === "IELTS Mock" ? (
                     <td className="">

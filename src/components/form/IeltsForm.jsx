@@ -10,6 +10,7 @@ import Error from "../error/Error";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { BASE_URL } from "../../constants/baseurl";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
 const defaultOptions = {
   loop: true,
@@ -30,12 +31,20 @@ function IeltsForm() {
   const [success, setSuccess] = useState(false);
   const [availableDate, setAvailableDate] = useState([]);
   const [choosenDate, setChoosenDate] = useState("");
+  const [price, setPrice] = useState("");
+  const [time, setTime] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const getExamData = (ex) => {
     axios
       .post(BASE_URL + "/api/exam/get_date", { exam_type: "IELTS Mock" })
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
         console.log(response.data);
+        setPrice(response.data[0]["price"]);
+        setTime(response.data[0]["exam_time"]);
+        console.log(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -49,6 +58,7 @@ function IeltsForm() {
           last_name: lastName,
           phone: phone,
           exam_date: choosenDate,
+          exam_time: time,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -106,6 +116,22 @@ function IeltsForm() {
                 {success && (
                   <SuccessMessage examName={" Register for IELTS Mock"} />
                 )}
+                <h4>
+                  Price:{" "}
+                  {isLoading ? (
+                    <Skeleton count={1} width={100} />
+                  ) : (
+                    <span>{price} UZS</span>
+                  )}
+                </h4>
+                <h4>
+                  Exam Time:{" "}
+                  {isLoading ? (
+                    <Skeleton count={1} width={100} />
+                  ) : (
+                    <span>{time}</span>
+                  )}
+                </h4>
                 <CustomInput
                   type={"text"}
                   label={"First Name (per PASSPORT)"}

@@ -52,6 +52,7 @@ function CustomForm() {
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState("");
+  const [time, setTime] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (termsAndConditions && image !== "") {
@@ -67,6 +68,7 @@ function CustomForm() {
         gender: gender,
         exam_type: exam_name,
         exam_date: choosenDate,
+        exam_time: time,
         is_paid: false,
       };
 
@@ -107,6 +109,7 @@ function CustomForm() {
       .then((response) => {
         setAvailableDate([...availableDate, ...response.data]);
         setPrice(response.data[0]["price"]);
+        setTime(response.data[0]["exam_time"]);
         console.log(response.data);
         setIsLoading(false);
       })
@@ -173,6 +176,14 @@ function CustomForm() {
                       <Skeleton count={1} width={100} />
                     ) : (
                       <span>{price} UZS</span>
+                    )}
+                  </h4>
+                  <h4>
+                    Exam Time:{" "}
+                    {isLoading ? (
+                      <Skeleton count={1} width={100} />
+                    ) : (
+                      <span>{time}</span>
                     )}
                   </h4>
                   <CustomInput

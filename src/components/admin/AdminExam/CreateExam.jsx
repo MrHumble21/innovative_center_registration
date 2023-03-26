@@ -19,6 +19,7 @@ const CreateExam = () => {
   const [title, setTitle] = useState("");
   const [start, setStart] = useState("");
   const [price, setPrice] = useState(0);
+  const [time, setTime] = useState("09:00");
   // const [end, setEnd] = useState("");
 
   const create_exam = async () => {
@@ -26,6 +27,7 @@ const CreateExam = () => {
       .post(BASE_URL + "/api/exam", {
         exam_type: title,
         exam_date: start,
+        exam_time: time,
         price: price,
       })
       .then((res) => {
@@ -68,6 +70,22 @@ const CreateExam = () => {
                   </option>
                 ))}
               </select>
+
+              <label htmlFor="type">Exam Time </label>
+
+              <select
+                id="type"
+                onChange={(e) => {
+                  setTime(e.target.value);
+                  console.log(e.target.value);
+                }}
+                className="form-select my-2"
+                aria-label="Default select example"
+              >
+                <option value="08:30">08:30</option>
+                <option value="13:30">13:30</option>
+              </select>
+
               <label htmlFor="start">Exam Date </label>
               <input
                 type="date"

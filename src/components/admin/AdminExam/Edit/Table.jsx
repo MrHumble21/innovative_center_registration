@@ -125,6 +125,8 @@ function AdminTable({ head = [], body = [] }) {
                   <td>{body.phone}</td>
                   <td>{body.email || "Not provided"}</td>
                   <td>{body.exam_type}</td>
+                  <td>{body.exam_date}</td>
+                  <td>{body.exam_time}</td>
                   {body.exam_type === "IELTS Mock" ? (
                     <td>
                       <center>Not available</center>
