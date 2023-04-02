@@ -55,7 +55,7 @@ const ExamCard = ({
           <AiOutlineFilePdf className="mx-2" color="red" /> {title} FAQs
         </a>
       </div>
-      <Link to={`/${link}`} state={title}>
+      <Link to={`/${id}`} state={title}>
         <span
           style={{
             bottom: "18px",

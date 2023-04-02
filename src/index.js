@@ -23,12 +23,14 @@ import AdminCategoryRoutes from "./pages/admin/AdminCategoryRoutes";
 import ExamsArrangement from "./utils/config/Exams arragement/ExamsArrangement";
 import TermsAndConditions from "./pages/terms/TermsAndConditions";
 import Payment from "./pages/Payment/Payment";
+import Arrangement from "./pages/arrangement/Arrangement";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Landing />,
   },
+
   {
     path: "/:exam",
     element: <CustomForm />,
@@ -80,7 +82,7 @@ const router = createBrowserRouter([
     path: "/admin/arrange_exams",
     element: (
       <>
-        <ExamsArrangement />
+        <Arrangement />
       </>
     ),
   },
