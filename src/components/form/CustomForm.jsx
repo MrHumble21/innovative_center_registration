@@ -152,7 +152,7 @@ function CustomForm() {
   }, []);
   return (
     <>
-      {exam !== "14" ? (
+      {exam !== "6429185c431cb13d26f39109" ? (
         <div style={{}} className="container-fluid p-5 gradient-bg">
           <div className="container-fluid bg-white custom-shadow ">
             <div className="container p-3">
